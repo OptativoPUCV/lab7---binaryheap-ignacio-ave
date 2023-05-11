@@ -103,8 +103,9 @@ void heap_pop(Heap* pq){
    // Elimine el mayor elemento del montículo (la raíz)
    pq->size--;
    
-   // Llame a la función heap_ordenar para ordenar el arreglo
-   heap_ordenar(pq->heapArray, pq->size);
+   // Llame a la función  para ordenar el arreglo
+   reordenamiento_ascendente  (pq->heapArray, pq->size);
+   
    
    
 

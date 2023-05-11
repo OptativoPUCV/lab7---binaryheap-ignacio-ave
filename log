@@ -36,3 +36,9 @@ Thu May 11 07:36:10 PM -04 2023:
  tests:  7|1
 total_score: 45/70
 4d96ca4
+Thu May 11 07:37:11 PM -04 2023: 
+ heap.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+ tests:  7|1
+total_score: 45/70
+abfd5f6
