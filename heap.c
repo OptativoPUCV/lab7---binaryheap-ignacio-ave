@@ -20,7 +20,7 @@ typedef struct Heap{
 // Esta función retorna el dato con mayor prioridad del montículo.
 void* heap_top(Heap* pq){
    // Si el montículo está vacío retorne NULL
-   if ( pq-> size < 0 ) return NULL; 
+   if ( pq-> size <= 0 ) return NULL; 
    
    // Retorne el dato con mayor prioridad del montículo
    return pq->heapArray[0].data;
