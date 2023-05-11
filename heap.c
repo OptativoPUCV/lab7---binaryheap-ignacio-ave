@@ -56,7 +56,7 @@ void reordenamiento_ascendente(heapElem* arreglo, int n){
 
    while ( i > 0 && arreglo[i].priority > arreglo[(i-1)/2].priority ){
       // Intercambie el padre con el hijo
-      heapElem  = arreglo[i];
+      aux = arreglo[i];
       arreglo[i] = arreglo[(i-1)/2];
       arreglo[(i-1)/2] = aux;
       i = (i-1)/2;
