@@ -47,6 +47,31 @@ void heap_ordenar(heapElem* arreglo, int n){
    }
 }
 
+// Realiza el reordenamiento ascendente (percolate up)
+void reordenamiento_ascendente(heapElem* arreglo, int n){
+   int i = n-1; // Posición del último elemento
+   
+   heapElem aux;
+   // Mientras el padre tenga menor prioridad que el hijo
+
+   while ( i > 0 && arreglo[i].priority > arreglo[(i-1)/2].priority ){
+      // Intercambie el padre con el hijo
+      heapElem  = arreglo[i];
+      arreglo[i] = arreglo[(i-1)/2];
+      arreglo[(i-1)/2] = aux;
+      i = (i-1)/2;
+   }
+   
+}
+
+
+heapElem create_heapElem(void* data, int priority){
+   heapElem nuevo;
+   nuevo.data = data;
+   nuevo.priority = priority;
+   return nuevo;
+}
+
 void heap_push(Heap* pq, void* data, int priority){
    // Si el arreglo está lleno aumente la capacidad al doble + 1 usando la función realloc así: arreglo = realloc(arreglo, nueva_capacidad)
    if ( pq-> size == pq->capac ){
@@ -54,13 +79,16 @@ void heap_push(Heap* pq, void* data, int priority){
       pq->heapArray = realloc(pq->heapArray, pq->capac*sizeof(heapElem));
    }
    
-   //Se inserta el dato en la primera posición disponible del árbol (arreglo) y luego el dato sube (intercambiándose por el padre) hasta encontrar una ubicación en que se cumpla la propiedad.
-   pq->heapArray[pq->size].data = data;
-   pq->heapArray[pq->size].priority = priority;
+   heapElem nuevo = create_heapElem(data, priority);
+   // Inserte el nuevo dato en la primera posición disponible del árbol (arreglo)
+   pq->heapArray[pq->size] = nuevo;
    pq->size++;
+
+
+
+   // Llame a la función para ordenar el arreglo
+   reordenamiento_ascendente  (pq->heapArray, pq->size);
    
-   // Llame a la función heap_ordenar para ordenar el arreglo
-   heap_ordenar(pq->heapArray, pq->size);
    
    
 

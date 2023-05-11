@@ -20,3 +20,13 @@ Thu May 11 07:15:01 PM -04 2023:
  tests:  2|2
 total_score: 20/70
 d2c9806
+Thu May 11 07:35:38 PM -04 2023: 
+ heap.c | 38 +++++++++++++++++++++++++++++++++-----
+ 1 file changed, 33 insertions(+), 5 deletions(-)
+In file included from test.c:4:
+heap.c: In function ‘reordenamiento_ascendente’:
+heap.c:59:17: error: expected identifier or ‘(’ before ‘=’ token
+   59 |       heapElem  = arreglo[i];
+      |                 ^
+Compilation failed
+2065b58
