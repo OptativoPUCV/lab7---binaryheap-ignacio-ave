@@ -64,3 +64,9 @@ heap.c:116:13: error: unused variable ‘raiz’ [-Werror=unused-variable]
 cc1: all warnings being treated as errors
 Compilation failed
 12bbeb6
+Thu May 11 07:50:46 PM -04 2023: 
+ heap.c | 77 ++++++++++++++++++++++++++++++++++++++++++------------------------
+ 1 file changed, 49 insertions(+), 28 deletions(-)
+ tests:  8|0
+total_score: 70/70
+fbe2db1

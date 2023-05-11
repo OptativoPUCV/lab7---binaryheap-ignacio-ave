@@ -47,31 +47,22 @@ void heap_ordenar(heapElem* arreglo, int n){
    }
 }
 
-// Realiza el reordenamiento descendente (percolate down)
-void reordenamiento_descendente(heapElem* arreglo, int n, int i){
-   int padre = i;              // Posición del padre
-   int hijo_izq = 2*i + 1;     // Posición del hijo izquierdo
-   int hijo_der = 2*i + 2;     // Posición del hijo derecho
+// Realiza el reordenamiento ascendente (percolate up)
+void reordenamiento_ascendente(heapElem* arreglo, int n){
+   int i = n-1; // Posición del último elemento
+   
+   heapElem aux;
+   // Mientras el padre tenga menor prioridad que el hijo
 
-   // Compara el padre con el hijo izquierdo
-   if (hijo_izq < n && arreglo[hijo_izq].priority > arreglo[padre].priority)
-      padre = hijo_izq;
-
-   // Compara el padre con el hijo derecho
-   if (hijo_der < n && arreglo[hijo_der].priority > arreglo[padre].priority)
-      padre = hijo_der;
-
-   // Si el padre no es el mismo, intercambia y continúa el reordenamiento descendente
-   if (padre != i) {
-      heapElem aux = arreglo[i];
-      arreglo[i] = arreglo[padre];
-      arreglo[padre] = aux;
-      reordenamiento_descendente(arreglo, n, padre);
+   while ( i > 0 && arreglo[i].priority > arreglo[(i-1)/2].priority ){
+      // Intercambie el padre con el hijo
+      aux = arreglo[i];
+      arreglo[i] = arreglo[(i-1)/2];
+      arreglo[(i-1)/2] = aux;
+      i = (i-1)/2;
    }
+   
 }
-
-
-
 
 
 heapElem create_heapElem(void* data, int priority){
@@ -105,23 +96,53 @@ void heap_push(Heap* pq, void* data, int priority){
 
 
 // Implemente la función void heap_pop(Heap* pq).
-// Esta función elimina el mayor elemento del montículo (la raíz).
-void heap_pop(Heap* pq){
+//  Esta función elimina el mayor elemento del montículo (la raíz).
+void heap_pop(Heap* pq) {
    if (pq->size == 0) {
       // El montículo está vacío, no hay elementos para eliminar
       return;
-   }
+    }
 
-   // Obtener el elemento raíz (el mayor elemento)
-   heapElem raiz = pq->heapArray[0];
-
-   // Reemplazar la raíz con el último elemento del arreglo
+    // Se intercambia el nodo raíz por el último nodo del árbol
+   heapElem temp = pq->heapArray[0];
    pq->heapArray[0] = pq->heapArray[pq->size - 1];
+   pq->heapArray[pq->size - 1] = temp;
+
+    // Se reduce el tamaño del montículo
    pq->size--;
 
-   // Realizar el reordenamiento descendente (percolate down)
-   reordenamiento_descendente(pq->heapArray, pq->size, 0);
+    // Realiza el reordenamiento descendente (percolate down)
+   int parent = 0;
+   int maxChild;
+
+    // Mientras el padre tenga al menos un hijo
+   while (2 * parent + 1 < pq->size) {
+        // Selecciona el hijo mayor
+      int leftChild = 2 * parent + 1;
+      int rightChild = 2 * parent + 2;
+
+      if (rightChild < pq->size && pq->heapArray[rightChild].priority > pq->heapArray[leftChild].priority) {
+         maxChild = rightChild;
+      } else {
+         maxChild = leftChild;
+      }
+
+        // Compara el padre con el hijo mayor
+      if (pq->heapArray[parent].priority < pq->heapArray[maxChild].priority) {
+         // Intercambia el padre con el hijo mayor
+         heapElem aux = pq->heapArray[parent];
+         pq->heapArray[parent] = pq->heapArray[maxChild];
+         pq->heapArray[maxChild] = aux;
+
+            // Actualiza el índice del padre
+         parent = maxChild;
+      } else {
+            // El padre tiene mayor prioridad que sus hijos, el montículo está ordenado correctamente
+         break;
+        }
+    }
 }
+
 
 
 // Implemente la función Heap* createHeap(). 
