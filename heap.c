@@ -47,22 +47,31 @@ void heap_ordenar(heapElem* arreglo, int n){
    }
 }
 
-// Realiza el reordenamiento ascendente (percolate up)
-void reordenamiento_ascendente(heapElem* arreglo, int n){
-   int i = n-1; // Posición del último elemento
-   
-   heapElem aux;
-   // Mientras el padre tenga menor prioridad que el hijo
+// Realiza el reordenamiento descendente (percolate down)
+void reordenamiento_descendente(heapElem* arreglo, int n, int i){
+   int padre = i;              // Posición del padre
+   int hijo_izq = 2*i + 1;     // Posición del hijo izquierdo
+   int hijo_der = 2*i + 2;     // Posición del hijo derecho
 
-   while ( i > 0 && arreglo[i].priority > arreglo[(i-1)/2].priority ){
-      // Intercambie el padre con el hijo
-      aux = arreglo[i];
-      arreglo[i] = arreglo[(i-1)/2];
-      arreglo[(i-1)/2] = aux;
-      i = (i-1)/2;
+   // Compara el padre con el hijo izquierdo
+   if (hijo_izq < n && arreglo[hijo_izq].priority > arreglo[padre].priority)
+      padre = hijo_izq;
+
+   // Compara el padre con el hijo derecho
+   if (hijo_der < n && arreglo[hijo_der].priority > arreglo[padre].priority)
+      padre = hijo_der;
+
+   // Si el padre no es el mismo, intercambia y continúa el reordenamiento descendente
+   if (padre != i) {
+      heapElem aux = arreglo[i];
+      arreglo[i] = arreglo[padre];
+      arreglo[padre] = aux;
+      reordenamiento_descendente(arreglo, n, padre);
    }
-   
 }
+
+
+
 
 
 heapElem create_heapElem(void* data, int priority){
@@ -96,20 +105,22 @@ void heap_push(Heap* pq, void* data, int priority){
 
 
 // Implemente la función void heap_pop(Heap* pq).
-//  Esta función elimina el mayor elemento del montículo (la raíz).
+// Esta función elimina el mayor elemento del montículo (la raíz).
 void heap_pop(Heap* pq){
-   // Si el montículo está vacío no haga nada
-   if ( pq-> size < 0 ) return; 
-   
-   // Elimine el mayor elemento del montículo (la raíz)
-   pq->size--;
-   
-   // Llame a la función  para ordenar el arreglo
-   heap_ordenar(pq->heapArray, pq->size);
-   
-   
-   
+   if (pq->size == 0) {
+      // El montículo está vacío, no hay elementos para eliminar
+      return;
+   }
 
+   // Obtener el elemento raíz (el mayor elemento)
+   heapElem raiz = pq->heapArray[0];
+
+   // Reemplazar la raíz con el último elemento del arreglo
+   pq->heapArray[0] = pq->heapArray[pq->size - 1];
+   pq->size--;
+
+   // Realizar el reordenamiento descendente (percolate down)
+   reordenamiento_descendente(pq->heapArray, pq->size, 0);
 }
 
 

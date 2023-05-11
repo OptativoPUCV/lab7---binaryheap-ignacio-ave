@@ -48,3 +48,19 @@ Thu May 11 07:41:59 PM -04 2023:
  tests:  7|1
 total_score: 45/70
 707b479
+Thu May 11 07:46:51 PM -04 2023: 
+ heap.c | 54 +++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 31 insertions(+), 23 deletions(-)
+In file included from test.c:4:
+heap.c: In function ‘heap_push’:
+heap.c:99:4: error: implicit declaration of function ‘reordenamiento_ascendente’; did you mean ‘reordenamiento_descendente’? [-Werror=implicit-function-declaration]
+   99 |    reordenamiento_ascendente  (pq->heapArray, pq->size);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+      |    reordenamiento_descendente
+heap.c: In function ‘heap_pop’:
+heap.c:116:13: error: unused variable ‘raiz’ [-Werror=unused-variable]
+  116 |    heapElem raiz = pq->heapArray[0];
+      |             ^~~~
+cc1: all warnings being treated as errors
+Compilation failed
+12bbeb6
