@@ -2,3 +2,9 @@ Thu May 11 07:11:43 PM -04 2023:
  tests:  1|3
 total_score: 10/70
 da9f140
+Thu May 11 07:12:53 PM -04 2023: 
+ heap.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+ tests:  1|3
+total_score: 10/70
+19dd403

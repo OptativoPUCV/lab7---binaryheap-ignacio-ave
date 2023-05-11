@@ -22,9 +22,8 @@ void* heap_top(Heap* pq){
    // Si el montículo está vacío retorne NULL
    if ( pq-> size < 0 ) return NULL; 
    
-   // Si no retorne el dato con mayor prioridad
+   // Retorne el dato con mayor prioridad del montículo
    return pq->heapArray[0].data;
-   
 }
 
 
