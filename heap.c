@@ -19,7 +19,13 @@ typedef struct Heap{
 
 // Implementación de funciones auxiliares
 
-// 
+void swap(heapElem* a, heapElem* b);
+heapElem create_heapElem(void* data, int priority);
+void reordenamiento_ascendente(heapElem* arreglo, int n);
+void reordenamiento_descendente(Heap* pq, int parent);
+
+
+
 void swap(heapElem* a, heapElem* b) {
    heapElem temp = *a;
    *a = *b;
@@ -74,7 +80,7 @@ void reordenamiento_descendente(Heap* pq, int parent){
    }
 }
 
-
+////////////////////////////////////////////////////////////////////////////
 
 // Implementación la función void* heap_top(Heap* pq).
 
@@ -131,5 +137,5 @@ Heap* createHeap(){
    nuevo->size = 0;
    // La capacidad inicial del arreglo será 3
    nuevo->capac = 3;
-   return nuevo
+   return nuevo;
 }
