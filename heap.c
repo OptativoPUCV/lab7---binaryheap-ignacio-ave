@@ -27,7 +27,7 @@ void swap(heapElem* a, heapElem* b) {
 }
 
 heapElem create_heapElem(void* data, int priority){
-   heapElem nuevo;
+   heapElem nuevo; // = (heapElem*)malloc(sizeof(heapElem));
    nuevo.data = data;
    nuevo.priority = priority;
    return nuevo;
@@ -129,6 +129,7 @@ Heap* createHeap(){
    Heap* nuevo = (Heap*)malloc(sizeof(Heap));
    nuevo->heapArray = (heapElem*)malloc(3*sizeof(heapElem));
    nuevo->size = 0;
+   // La capacidad inicial del arreglo será 3
    nuevo->capac = 3;
-   return nuevo;
+   return nuevo
 }

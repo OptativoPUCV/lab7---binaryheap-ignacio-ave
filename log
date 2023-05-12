@@ -105,3 +105,16 @@ Thu May 11 09:30:43 PM -04 2023:
  tests:  8|0
 total_score: 70/70
 ee2c08c
+Thu May 11 09:31:52 PM -04 2023: 
+ heap.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+In file included from test.c:4:
+heap.c: In function ‘createHeap’:
+heap.c:134:16: error: expected ‘;’ before ‘}’ token
+  134 |    return nuevo
+      |                ^
+      |                ;
+  135 | }
+      | ~               
+Compilation failed
+1bcbb0b
