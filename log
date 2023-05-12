@@ -76,3 +76,14 @@ Thu May 11 08:11:16 PM -04 2023:
  tests:  8|0
 total_score: 70/70
 db0c672
+Thu May 11 08:16:16 PM -04 2023: 
+ heap.c | 91 +++++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 49 insertions(+), 42 deletions(-)
+In file included from test.c:4:
+heap.c: In function ‘heap_pop’:
+heap.c:115:8: error: unused variable ‘maxChild’ [-Werror=unused-variable]
+  115 |    int maxChild;
+      |        ^~~~~~~~
+cc1: all warnings being treated as errors
+Compilation failed
+25d4695

@@ -17,16 +17,61 @@ typedef struct Heap{
 } Heap;
 
 
+// Implementación de funciones auxiliares
 void swap(heapElem* a, heapElem* b) {
    heapElem temp = *a;
    *a = *b;
    *b = temp;
 }
 
+heapElem create_heapElem(void* data, int priority){
+   heapElem nuevo;
+   nuevo.data = data;
+   nuevo.priority = priority;
+   return nuevo;
+}
+
+void reordenamiento_ascendente(heapElem* arreglo, int n){
+   int i = n-1;
+   while ( i > 0 && arreglo[i].priority > arreglo[(i-1)/2].priority ){
+      swap(&arreglo[i], &arreglo[(i-1)/2]);
+      i = (i-1)/2;
+   }
+}
+
+void reordenamiento_descendente(Heap* pq, int parent){
+   int maxChild;
+
+   // Mientras el padre tenga al menos un hijo
+   while (2 * parent + 1 < pq->size) {
+      int leftChild = 2 * parent + 1;
+      int rightChild = 2 * parent + 2;
+
+      // Selecciona el hijo mayor
+      if (rightChild < pq->size && pq->heapArray[rightChild].priority > pq->heapArray[leftChild].priority) {
+         maxChild = rightChild;
+      } else {
+         maxChild = leftChild;
+      }
+
+      // Compara el padre con el hijo mayor
+      if (pq->heapArray[parent].priority < pq->heapArray[maxChild].priority) {
+         // Intercambia el padre con el hijo mayor
+         swap(&pq->heapArray[parent], &pq->heapArray[maxChild]);
+
+         // Actualiza el índice del padre
+         parent = maxChild;
+      } else {
+         // El padre tiene mayor prioridad que sus hijos, el montículo está ordenado correctamente
+         break;
+      }
+   }
+}
 
 
-// Implemente la función void* heap_top(Heap* pq).
-// Esta función retorna el dato con mayor prioridad del montículo.
+
+// Implementación la función void* heap_top(Heap* pq).
+
 void* heap_top(Heap* pq){
    // Si el montículo está vacío retorne NULL
    if ( pq-> size <= 0 ) return NULL; 
@@ -37,27 +82,6 @@ void* heap_top(Heap* pq){
 
 
 // Implemente la función void heap_push(Heap* pq, void* data, int p). 
-// Esta función inserta un nuevo dato con prioridad p en el montículo. 
-// Se inserta el dato en la primera posición disponible del árbol (arreglo) y luego el dato sube (intercambiándose por el padre) hasta encontrar una ubicación en que se cumpla la propiedad.
-
-// Si el arreglo está lleno aumente la capacidad al doble + 1 usando la función realloc así: arreglo = realloc(arreglo, nueva_capacidad)
-
-void reordenamiento_ascendente(heapElem* arreglo, int n){
-   int i = n-1;
-   while ( i > 0 && arreglo[i].priority > arreglo[(i-1)/2].priority ){
-      swap(&arreglo[i], &arreglo[(i-1)/2]);
-      i = (i-1)/2;
-   }
-}
-
-
-
-heapElem create_heapElem(void* data, int priority){
-   heapElem nuevo;
-   nuevo.data = data;
-   nuevo.priority = priority;
-   return nuevo;
-}
 
 void heap_push(Heap* pq, void* data, int priority){
    // Si el arreglo está lleno aumente la capacidad al doble + 1 usando la función realloc así: arreglo = realloc(arreglo, nueva_capacidad)
@@ -65,25 +89,20 @@ void heap_push(Heap* pq, void* data, int priority){
       pq->capac = pq->capac*2 + 1;
       pq->heapArray = realloc(pq->heapArray, pq->capac*sizeof(heapElem));
    }
-   
+
    heapElem nuevo = create_heapElem(data, priority);
    // Inserte el nuevo dato en la primera posición disponible del árbol (arreglo)
    pq->heapArray[pq->size] = nuevo;
    pq->size++;
-
-
-
+   
    // Llame a la función para ordenar el arreglo
    reordenamiento_ascendente  (pq->heapArray, pq->size);
    
-   
-   
-
 }
 
 
 // Implemente la función void heap_pop(Heap* pq).
-//  Esta función elimina el mayor elemento del montículo (la raíz).
+
 void heap_pop(Heap* pq) {
    if (pq->size == 0) {
       return;
@@ -95,30 +114,13 @@ void heap_pop(Heap* pq) {
    int parent = 0;
    int maxChild;
 
-   while (2 * parent + 1 < pq->size) {
-      int leftChild = 2 * parent + 1;
-      int rightChild = 2 * parent + 2;
-
-      if (rightChild < pq->size && pq->heapArray[rightChild].priority > pq->heapArray[leftChild].priority) {
-         maxChild = rightChild;
-      } else {
-         maxChild = leftChild;
-      }
-
-      if (pq->heapArray[parent].priority < pq->heapArray[maxChild].priority) {
-         swap(&pq->heapArray[parent], &pq->heapArray[maxChild]);
-         parent = maxChild;
-      } else {
-         break;
-      }
-   }
+   // Reordenamiento descendente
+   reordenamiento_descendente(pq, parent);
 }
 
 
 
 // Implemente la función Heap* createHeap(). 
-// Esta función crea un nuevo dato de tipo Heap inicializando sus variables. 
-// Considere que la capacidad incial es de 3 casillas para el arreglo.
 
 Heap* createHeap(){
    Heap* nuevo = (Heap*)malloc(sizeof(Heap));
