@@ -18,6 +18,8 @@ typedef struct Heap{
 
 
 // Implementación de funciones auxiliares
+
+// 
 void swap(heapElem* a, heapElem* b) {
    heapElem temp = *a;
    *a = *b;
@@ -66,6 +68,7 @@ void reordenamiento_descendente(Heap* pq, int parent){
          // Actualiza el índice del padre
          parent = maxChild;
       } else {
+         // Si el padre es mayor que sus hijos, termina el ciclo
          break;
       }
    }
@@ -116,14 +119,12 @@ void heap_pop(Heap* pq) {
 
    int parent = 0;
 
-   // Reordenamiento descendente
    reordenamiento_descendente(pq, parent);
 }
 
 
 
 // Implemente la función Heap* createHeap(). 
-
 Heap* createHeap(){
    Heap* nuevo = (Heap*)malloc(sizeof(Heap));
    nuevo->heapArray = (heapElem*)malloc(3*sizeof(heapElem));
