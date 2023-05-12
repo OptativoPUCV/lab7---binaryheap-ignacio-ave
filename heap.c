@@ -112,7 +112,6 @@ void heap_pop(Heap* pq) {
    pq->size--;
 
    int parent = 0;
-   int maxChild;
 
    // Reordenamiento descendente
    reordenamiento_descendente(pq, parent);

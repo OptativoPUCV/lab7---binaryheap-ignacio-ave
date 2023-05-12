@@ -87,3 +87,9 @@ heap.c:115:8: error: unused variable ‘maxChild’ [-Werror=unused-variable]
 cc1: all warnings being treated as errors
 Compilation failed
 25d4695
+Thu May 11 08:16:31 PM -04 2023: 
+ heap.c | 1 -
+ 1 file changed, 1 deletion(-)
+ tests:  8|0
+total_score: 70/70
+0e6a04f
