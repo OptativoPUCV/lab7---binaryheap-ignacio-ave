@@ -66,7 +66,6 @@ void reordenamiento_descendente(Heap* pq, int parent){
          // Actualiza el índice del padre
          parent = maxChild;
       } else {
-         // El padre tiene mayor prioridad que sus hijos, el montículo está ordenado correctamente
          break;
       }
    }
