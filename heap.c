@@ -32,9 +32,13 @@ heapElem create_heapElem(void* data, int priority){
 }
 
 void reordenamiento_ascendente(heapElem* arreglo, int n){
+   
    int i = n-1;
+   // Mientras el padre tenga al menos un hijo
    while ( i > 0 && arreglo[i].priority > arreglo[(i-1)/2].priority ){
+      // Intercambia el padre con el hijo mayor
       swap(&arreglo[i], &arreglo[(i-1)/2]);
+      // Actualiza el índice del padre
       i = (i-1)/2;
    }
 }
